@@ -59,6 +59,37 @@
 	.category-tile:hover {
 	  box-shadow: 0 1px 5px 1px #cccccc;
 	}
+    div.chat{
+        float: left;
+        clear: left;
+        margin-left: 30px;
+        margin-top: 30px;
+        font-family: sans-serif;
+        border-width: 2px;
+        height: 230px;
+        width: 430px;
+        border: black;
+        border-style: solid;
+        overflow-y: scroll;
+        overflow-x:  auto;
+        position: relative;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-top: 35px;
+        padding-top: 35px;
+
+    }
+    div.chat div p{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-weight: bold;
+    }
+    div.message{
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+    }
 </style>
 </head>
 <body>
@@ -88,6 +119,44 @@
             <span><p>Basketball Stars</p></span>
         </div>
     </a>-->
+</div>
+<div class="chat">
+<div><p>Chat</p></div>
+<div class="message"><input id=input placeholder="message" /></div>
+<div id=box></div>
+
+<script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.28.2.min.js></script>
+<script> (function() {
+        var pubnub = new PubNub({
+            publishKey: 'pub-c-7c4d9e3e-191a-4660-a051-3a131f4ce905',
+            subscribeKey: 'sub-c-6a05ff11-50bc-4c9e-ab73-5173420cd2a7'
+        });
+        function $(id) {
+            return document.getElementById(id);
+        }
+        var box = $('box'),
+            input = $('input'),
+            channel = '10chat-demo';
+        pubnub.addListener({
+            message: function(obj) {
+                box.innerHTML = ('' + obj.message).replace(/[<>]/g, '') + '<br>' + box.innerHTML
+            }
+        });
+        pubnub.subscribe({
+            channels: [channel]
+        });
+        input.addEventListener('keyup', function(e) {
+            if ((e.keyCode || e.charCode) === 13) {
+                pubnub.publish({
+                    channel: channel,
+                    message: input.value,
+                    x: (input.value = '')
+                });
+            }
+        });
+    })();
+</script>
+
 </div>
 </body>
 </html>
