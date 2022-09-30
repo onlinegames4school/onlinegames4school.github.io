@@ -62,33 +62,44 @@
     div.chat{
         float: left;
         clear: left;
-        margin-left: 30px;
-        margin-top: 30px;
         font-family: sans-serif;
         border-width: 2px;
-        height: 230px;
+        height: 170px;
         width: 430px;
         border: black;
         border-style: solid;
         overflow-y: scroll;
         overflow-x:  auto;
-        position: relative;
         padding-left: 25px;
         padding-right: 25px;
         padding-top: 35px;
         padding-top: 35px;
-
+        position: relative;
+        margin-top: 30px;
     }
     div.chat div p{
         position: absolute;
         top: 10px;
         left: 10px;
         font-weight: bold;
+
     }
     div.message{
         position: absolute;
-        bottom: 10px;
-        left: 10px;
+        bottom: 0px;
+        border-style: solid;
+        border-top-style: hidden;
+        width: 430px;
+        height: 30px;
+        padding-top: 5px;
+        padding-left: 3px;
+    }
+    div#hugebox{
+        position: relative;
+        height: 230px;
+        width: 430px;
+        clear: left;
+        margin-left: 30px;
     }
 </style>
 </head>
@@ -120,9 +131,11 @@
         </div>
     </a>-->
 </div>
+
+<div id="hugebox">
+    <div class="messagecontainer"><div class="message"><input id=input placeholder="message" /></div></div>
 <div class="chat">
 <div><p>Chat</p></div>
-<div class="message"><input id=input placeholder="message" /></div>
 <div id=box></div>
 
 <script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.28.2.min.js></script>
@@ -156,7 +169,8 @@
         });
     })();
 </script>
-
 </div>
+</div>
+
 </body>
 </html>
